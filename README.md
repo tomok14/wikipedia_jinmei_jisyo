@@ -1,0 +1,1 @@
+Wikipediaからmozc用人名辞書を作成する
