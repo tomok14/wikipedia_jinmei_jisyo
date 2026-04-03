@@ -1,4 +1,4 @@
-name: delete-data-auto
+name: make_jisyo
 
 #on:
 #  schedule:
@@ -8,11 +8,12 @@ name: delete-data-auto
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  delete_data:
+  make_jisyo:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
       - run: echo "cron追加したよ"
       - run: ls -a
+      - run: ./build.sh
 
