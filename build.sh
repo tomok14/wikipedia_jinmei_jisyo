@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 URL=https://dumps.wikimedia.your.org/jawiki/latest/jawiki-latest-pages-articles.xml.bz2
 echo "$URL"

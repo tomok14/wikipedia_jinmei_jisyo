@@ -15,5 +15,6 @@ jobs:
 
       - run: echo "cron追加したよ"
       - run: ls -a
+      - run: which bash
       - run: ./build.sh
 
