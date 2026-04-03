@@ -1,0 +1,18 @@
+name: delete-data-auto
+
+#on:
+#  schedule:
+#    - cron: "0 21 * * *"
+#  workflow_dispatch:
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  delete_data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - run: echo "cron追加したよ"
+      - run: ls -a
+

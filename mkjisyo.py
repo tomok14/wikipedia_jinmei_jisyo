@@ -11,20 +11,30 @@ from lxml import etree
 
 
 
+#-----------------------------------------------------
+RE_SEIMEI = re.compile(r"'''([一-龯々〆ヵヶ]+)\s+([一-龯々〆ヵヶ]+)'''（([ぁ-ゟ]+)\s+([ぁ-ゟ]+)")
+RE_TAN = re.compile(r"'''([一-龯々〆ヵヶ]+)'''（([ぁ-ゟ]+)")
 
 
 # -------------------------------
 def proc_text(jisyo, text):
     """ Wikipedia記事一ページ分のテキスト処理 """
-    pattern = r"'''([一-龯々〆ヵヶ]+)\s+([一-龯々〆ヵヶ]+)'''（([ぁ-ゟ]+)\s+([ぁ-ゟ]+)"
 
-    if m := re.search(pattern, text):
+    if m := RE_SEIMEI.search(text):
         sei_kanji, mei_kanji, sei_yomi, mei_yomi = m.groups()
 
         # Mozc辞書形式で出力
         jisyo.write(f"{sei_yomi}\t{sei_kanji}\t名詞\n")
         jisyo.write(f"{mei_yomi}\t{mei_kanji}\t名詞\n")
         jisyo.write(f"{sei_yomi}{mei_yomi}\t{sei_kanji}{mei_kanji}\t名詞\n")
+        return
+
+    if m := RE_TAN.search(text):
+        tan_kanji, tan_yomi = m.groups()
+
+        # Mozc辞書形式で出力
+        jisyo.write(f"{tan_yomi}\t{tan_kanji}\t名詞\n")
+        return
 
 # -------------------------------
 
