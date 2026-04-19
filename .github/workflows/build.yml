@@ -36,9 +36,11 @@ jobs:
           ls -a
           which bash
           make test
+          ls -a
 
       - name: Upload binaries to release
         uses: ncipollo/release-action@v1
+        run: ls -a
         with:
           artifacts: "out.txt"
           bodyFile: "out.txt"
