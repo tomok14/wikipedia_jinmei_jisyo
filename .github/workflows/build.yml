@@ -18,13 +18,13 @@ jobs:
 
       - name: Python ライブラリをセットアップ
         run: |
-          apt update
-          apt install -y python3-lxml
+          sudo apt update
+          sudo apt install -y python3-lxml
 
       - name: コマンドをセットアップ
         run: |
-          apt update
-          apt install -y wget curl
+          sudo apt update
+          sudo apt install -y wget curl
 
       - name: make test
         run: |
