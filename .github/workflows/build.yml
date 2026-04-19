@@ -5,7 +5,11 @@ name: make_jisyo
 #    - cron: "0 21 * * *"
 #  workflow_dispatch:
 
-on: [push, pull_request, workflow_dispatch]
+#on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   make_jisyo:
