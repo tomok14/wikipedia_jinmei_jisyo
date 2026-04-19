@@ -1,21 +1,10 @@
 #!/bin/bash
 
-URL=https://dumps.wikimedia.your.org/jawiki/latest/jawiki-latest-pages-articles.xml.bz2
-echo "$URL"
-DUMPFILE=$(basename $URL)
-echo "$DUMPFILE"
-#exit 0
+DUMPFILE="$1"
+echo $DUMPFILE
 
-# ダンプが無いなら持ってくる
-if [ ! -e $DUMPFILE ]; then
-    #wget $URL
-    curl -O $URL
-fi
-
-# 辞書が無いなら作成する
-if [ ! -e jisyo.txt ]; then
-    python mkjisyo.py $DUMPFILE
-fi
+# 辞書作成
+python mkjisyo.py $DUMPFILE
 
 # 重複行削除
 awk '!a[$0]++' jisyo.txt > out.txt

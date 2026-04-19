@@ -144,8 +144,8 @@ def main():
     dumpfiles = sys.argv[1:]
     jisyofile = "jisyo.txt"
 
-    if Path(jisyofile).exists():
-        raise FileExistsError(f"File exists: {jisyofile}")
+    #if Path(jisyofile).exists():
+    #    raise FileExistsError(f"File exists: {jisyofile}")
 
     lognow("mkjisyo start")
     lognow(f"jisyofile = {jisyofile}")
