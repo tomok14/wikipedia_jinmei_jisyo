@@ -8,7 +8,8 @@ echo "$DUMPFILE"
 
 # ダンプが無いなら持ってくる
 if [ ! -e $DUMPFILE ]; then
-    wget $URL
+    #wget $URL
+    curl -O $URL
 fi
 
 # 辞書が無いなら作成する

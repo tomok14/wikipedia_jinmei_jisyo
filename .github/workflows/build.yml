@@ -13,8 +13,32 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - run: echo "cron追加したよ"
-      - run: ls -a
-      - run: which bash
-      - run: ./build.sh
+      - name: Python をセットアップ
+        uses: actions/setup-python@v6
 
+      - name: Python ライブラリをセットアップ
+        run: |
+          apt update
+          apt install -y python3-lxml
+
+      - name: コマンドをセットアップ
+        run: |
+          apt update
+          apt install -y wget curl
+
+      - name: make test
+        run: |
+          echo "cron追加したよ"
+          ls -a
+          which bash
+          make test
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            file: out.txt
+            asset_name: out.txt
+            tag: ${{ github.ref }}
+            overwrite: true
+            body: "This is my release text"
