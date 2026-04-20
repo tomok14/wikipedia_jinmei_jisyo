@@ -44,5 +44,5 @@ jobs:
       - name: Upload binaries to release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "out.txt"
+          artifacts: "mozc.txt,skk.txt"
           bodyFile: "body.md"
