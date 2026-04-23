@@ -1,0 +1,53 @@
+name: make_jisyo_cron
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"   # 毎月1日の 00:00 UTC（日本時間 09:00）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  make_jisyo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Git 設定
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: タグ作成
+        id: tag
+        run: |
+          TAG="v$(date +'%Y.%m.%d')"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          git tag $TAG
+          git push origin $TAG
+
+      - name: Python をセットアップ
+        uses: actions/setup-python@v6
+
+      - name: Python ライブラリをセットアップ
+        run: |
+          sudo apt update
+          sudo apt install -y python3-lxml
+
+      - name: コマンドをセットアップ
+        run: |
+          sudo apt update
+          sudo apt install -y wget curl
+
+      - name: make honban
+        run: |
+          make honban
+
+      - name: Upload binaries to release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag.outputs.tag }}
+          artifacts: "mozc.txt,skk.txt"
+          bodyFile: "body.md"
