@@ -2,7 +2,7 @@ name: make_jisyo_cron
 
 on:
   schedule:
-    - cron: "0 0 1 * *"   # 毎月1日の 00:00 UTC（日本時間 09:00）
+    - cron: "0 0 * * *"   # 毎月1日の 00:00 UTC（日本時間 09:00）
   workflow_dispatch:
 
 permissions:
@@ -49,5 +49,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.tag.outputs.tag }}
-          artifacts: "mozc.txt,skk.txt"
+          artifacts: "mozc.txt,skk.txt,msime.txt"
           bodyFile: "body.md"
