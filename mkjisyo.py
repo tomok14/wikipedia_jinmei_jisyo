@@ -15,9 +15,9 @@ from lxml import etree
 # RE_SEIMEI = re.compile(r"'''([一-龯々〆ヵヶ]+)\s+([一-龯々〆ヵヶ]+)'''（([ぁ-ゟ]+)\s+([ぁ-ゟ]+)")
 # RE_TAN = re.compile(r"'''([一-龯々〆ヵヶ]+)'''（([ぁ-ゟ]+)")
 RE_SEIMEI = re.compile(
-    r"'''([一-龯ぁ-ゔァ-ヴー々]+)\s+([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-ん]+)\s+([ぁ-ん]+)"
+    r"'''([一-龯ぁ-ゔァ-ヴー々]+)\s+([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー]+)\s+([ぁ-んー]+)"
 )
-RE_TAN = re.compile(r"'''([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-ん]+)")
+RE_TAN = re.compile(r"'''([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー]+)")
 
 
 # -------------------------------
@@ -59,12 +59,12 @@ def proc_text(jisyo, text):
 
 def is_kanji_1_to_6(s):
     """漢字1文字から6文字ならTrueを返す"""
-    return bool(re.fullmatch(r"[一-龯]{1,6}", s))
+    return bool(re.fullmatch(r"[一-龯々]{1,6}", s))
 
 
 def is_ja10(s):
     """日本語10文字以内ならTrue"""
-    return bool(re.fullmatch(r"[一-龯ぁ-ゔァ-ヴー・]{1,10}", s))
+    return bool(re.fullmatch(r"[一-龯ぁ-ゔァ-ヴー・々]{1,10}", s))
 
 
 def is_taisyo(title, text):

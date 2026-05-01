@@ -7,11 +7,16 @@ echo $DUMPFILE
 python mkjisyo.py $DUMPFILE
 
 # 重複行削除
-awk '!a[$0]++' jisyo.txt | sort >mozc.txt
+awk '!a[$0]++' jisyo.txt >nodup.txt
+
+# mozc用辞書の作成
+cat mozc_header.txt >mozc.txt
+cat nodup.txt | sort >>mozc.txt
 
 # SKK用辞書の作成
 cat skk_header.txt >skk.txt
-awk '{print $1 " /" $2 "/"}' mozc.txt | sort >>skk.txt
+awk '{print $1 " /" $2 "/"}' nodup.txt | sort >>skk.txt
 
 # MS-IME辞書の作成
-cp mozc.txt msime.txt
+cat msime_header.txt >msime.txt
+cat nodup.txt | sort >>msime.txt
