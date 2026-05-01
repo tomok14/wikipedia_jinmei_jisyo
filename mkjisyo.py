@@ -17,7 +17,7 @@ from lxml import etree
 RE_SEIMEI = re.compile(
     r"'''([一-龯ぁ-ゔァ-ヴー々]+)\s+([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー]+)\s+([ぁ-んー]+)"
 )
-RE_TAN = re.compile(r"'''([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー]+)")
+RE_TAN = re.compile(r"'''([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー\s]+)")
 
 
 # -------------------------------
@@ -48,6 +48,7 @@ def proc_text(jisyo, text):
     if "人物" in last500:
         if m := RE_TAN.search(text):
             tan_kanji, tan_yomi = m.groups()
+            tan_yomi = tan_yomi.replace(" ", "")
 
             # Mozc辞書形式で出力
             jisyo.write(f"{tan_yomi}\t{tan_kanji}\t人名\n")
