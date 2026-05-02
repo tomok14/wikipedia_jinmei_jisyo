@@ -50,6 +50,9 @@ def proc_text(jisyo, text):
             tan_kanji, tan_yomi = m.groups()
             tan_yomi = tan_yomi.replace(" ", "")
 
+            if tan_yomi == "":
+                return
+
             # Mozc辞書形式で出力
             jisyo.write(f"{tan_yomi}\t{tan_kanji}\t人名\n")
             return
@@ -70,10 +73,10 @@ def is_ja10(s):
 
 def is_taisyo(title, text):
     """処理対象ならTrueを返す"""
-    last500 = text[-500:]
-    # return is_kanji_1_to_6(title)
+    name = title.split(" (")[0] if " (" in title else title
 
-    if is_ja10(title):
+    if is_ja10(name):
+        last500 = text[-500:]
         if "人物" in last500:
             return True
     return False
