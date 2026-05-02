@@ -6,12 +6,17 @@ echo $DUMPFILE
 # 辞書作成
 python mkjisyo.py $DUMPFILE
 
+# 1,2文字の読みは削除する
+# →日本語漢字変換のご動作を防ぐため
+grep -v -P "^.{1,2}\t" jisyo.txt >jisyo2.txt
+
 # 重複行削除
-awk '!a[$0]++' jisyo.txt >nodup.txt
+awk '!a[$0]++' jisyo2.txt >nodup.txt
 
 # 作成日
 DATE=$(date)
 
+# sortをひらがな、カタカナ、漢字順にする
 export LC_COLLATE=C
 
 # mozc用辞書の作成
