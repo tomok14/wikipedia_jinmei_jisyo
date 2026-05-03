@@ -12,25 +12,28 @@ export LC_COLLATE=C
 function create_jisyo() {
     BASE=$1
     TYPE=$2
+    COMT="$3"
 
     MOZC=mozc_${TYPE}.txt
 
     # mozc用辞書の作成
-    cat mozc_header.txt >$MOZC
+    echo "# mozc用Wikipedia人名辞書: $COMT" >$MOZC
+    echo "# 読み, 語句, 品詞" >>$MOZC
     echo "# Created: $DATE" >>$MOZC
     cat $BASE | sort >>$MOZC
 
     SKK=skk_${TYPE}.txt
 
     # SKK用辞書の作成
-    cat skk_header.txt >$SKK
+    echo ";; -*- mode: fundamental; coding: utf-8 -*-" >$SKK
+    echo ";; SKK用Wikipedia人名辞書: $COMT" >>$SKK
     echo ";; Created: $DATE" >>$SKK
     awk '{print $1 " /" $2 "/"}' $BASE | sort >>$SKK
 
     MSIME=msime_${TYPE}.txt
 
     # MS-IME辞書の作成
-    cat msime_header.txt >$MSIME
+    echo "! MS-IME用Wikipedia人名辞書: $COMT" >$MSIME
     echo "! Created: $DATE" >>$MSIME
     cat $BASE | sort >>$MSIME
 }
@@ -46,8 +49,8 @@ function main() {
     # →日本語漢字変換の誤動作を防ぐため
     grep -v -P "^.{1,2}\t" nodup_all.txt >nodup_over3.txt
 
-    create_jisyo nodup_all.txt all
-    create_jisyo nodup_over3.txt over3
+    create_jisyo nodup_all.txt all "全て入り版"
+    create_jisyo nodup_over3.txt over3 "１，２文字除外版"
 }
 
 main
