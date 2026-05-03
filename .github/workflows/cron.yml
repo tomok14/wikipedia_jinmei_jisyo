@@ -49,5 +49,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.tag.outputs.tag }}
-          artifacts: "mozc.txt,skk.txt,msime.txt"
+          artifacts: "mozc_all.txt,mozc_over3.txt,skk_all.txt,skk_over3.txt,msime_all.txt,msime_over3.txt"
           bodyFile: "body.md"
