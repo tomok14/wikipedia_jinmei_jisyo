@@ -4,7 +4,9 @@ DUMPFILE="$1"
 echo $DUMPFILE
 
 # 作成日
-DATE=$(date)
+DATE=$(TZ=Asia/Tokyo date)
+#DATE=$(LANG=C TZ=-9 date '+%a %b %d %H:%M:%S JST %Y')
+echo $DATE
 
 # sortをひらがな、カタカナ、漢字順にする
 export LC_COLLATE=C
@@ -42,8 +44,11 @@ function main() {
     # 辞書作成
     python mkjisyo.py $DUMPFILE
 
+    # よみの入っていないおかしなデータは削除する
+    grep -P -v "^\t" jisyo.txt >jisyo2.txt
+
     # 重複行削除
-    awk '!a[$0]++' jisyo.txt >nodup_all.txt
+    awk '!a[$0]++' jisyo2.txt >nodup_all.txt
 
     # 1,2文字の読みは削除する
     # →日本語漢字変換の誤動作を防ぐため
