@@ -20,6 +20,7 @@ function create_jisyo() {
 
     # mozc用辞書の作成
     echo "# mozc用Wikipedia人名辞書: $COMT" >$MOZC
+    echo "# 生成元のデータ: $DUMPFILE" >>$MOZC
     echo "# 読み, 語句, 品詞" >>$MOZC
     echo "# Created: $DATE" >>$MOZC
     cat $BASE | sort >>$MOZC
@@ -29,6 +30,7 @@ function create_jisyo() {
     # SKK用辞書の作成
     echo ";; -*- mode: fundamental; coding: utf-8 -*-" >$SKK
     echo ";; SKK用Wikipedia人名辞書: $COMT" >>$SKK
+    echo ";; 生成元のデータ: $DUMPFILE" >>$SKK
     echo ";; Created: $DATE" >>$SKK
     awk '{print $1 " /" $2 "/"}' $BASE | sort >>$SKK
 
@@ -36,6 +38,7 @@ function create_jisyo() {
 
     # MS-IME辞書の作成
     echo "! MS-IME用Wikipedia人名辞書: $COMT" >$MSIME
+    echo "! 生成元のデータ: $DUMPFILE" >>$MSIME
     echo "! Created: $DATE" >>$MSIME
     cat $BASE | sort >>$MSIME
 }
