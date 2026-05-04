@@ -1,2 +1,0 @@
-;; -*- mode: fundamental; coding: utf-8 -*-
-;; SKK用Wikipedia人名辞書

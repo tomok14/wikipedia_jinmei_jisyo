@@ -1,2 +1,0 @@
-# mozc用Wikipedia人名辞書
-# 読み, 語句, 品詞
