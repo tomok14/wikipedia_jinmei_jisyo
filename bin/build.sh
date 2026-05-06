@@ -6,7 +6,7 @@ DUMPFILE="$1"
 echo $DUMPFILE
 
 # 作成日
-DATE=$(TZ=Asia/Tokyo date)
+DATE=$(TZ=Asia/Tokyo date "+%Y/%-m/%-d %H:%M:%S JST")
 #DATE=$(LANG=C TZ=-9 date '+%a %b %d %H:%M:%S JST %Y')
 echo $DATE
 

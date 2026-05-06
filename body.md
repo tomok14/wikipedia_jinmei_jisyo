@@ -6,7 +6,7 @@ Wikipedia人名辞書です。毎月一度自動生成しています。
 
 mozc_all.txt: mozc用全て入り辞書
 mozc_over3.txt: mozc用１，２文字除外辞書
-skk_all.txt: SKK用全て入り辞書
-skk_over3.txt: SKK用１，２文字除外辞書
 msime_all.txt: MSIME用全て入り辞書
 msime_over3.txt: MSIME用１，２文字除外辞書
+skk_all.txt: SKK用全て入り辞書
+skk_over3.txt: SKK用１，２文字除外辞書
