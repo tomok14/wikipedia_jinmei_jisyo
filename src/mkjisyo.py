@@ -4,6 +4,7 @@ Wikipediaダンプからmozc用人名辞書を作成する
 """
 
 import re
+import regex
 import bz2
 import sys
 from datetime import datetime
@@ -11,10 +12,22 @@ from lxml import etree
 
 
 # -----------------------------------------------------
-RE_SEIMEI = re.compile(
-    r"'''([一-龯ぁ-ゔァ-ヴー々]+)\s+([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー]+)\s+([ぁ-んー]+)"
+# RE_SEIMEI = re.compile(
+#    r"'''([一-龯ぁ-ゔァ-ヴー々]+)\s+([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー]+)\s+([ぁ-んー]+)"
+# )
+# RE_TAN = re.compile(r"'''([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー\s]+)")
+# import regex
+
+RE_SEIMEI = regex.compile(
+    r"'''([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)\s+"
+    r"([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)'''"
+    r"（([ぁ-んー]+)\s+([ぁ-んー]+)"
 )
-RE_TAN = re.compile(r"'''([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー\s]+)")
+
+RE_TAN = regex.compile(
+    r"'''([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)'''"
+    r"（([ぁ-んー\s]+)"
+)
 
 
 # -------------------------------
@@ -60,16 +73,20 @@ def proc_text(text):
 
 def is_kanji_1_to_6(s):
     """漢字1文字から6文字ならTrueを返す"""
-    return bool(re.fullmatch(r"[一-龯々]{1,6}", s))
+    return bool(regex.fullmatch(r"[\p{Script=Han}々]{1,6}", s))
 
 
 def is_ja10(s):
     """日本語10文字以内ならTrue"""
-    return bool(re.fullmatch(r"[一-龯ぁ-ゔァ-ヴー・々]{1,10}", s))
+    return bool(
+        regex.fullmatch(r"[\p{Script=Han}\p{Hiragana}\p{Katakana}ー・々]{1,10}", s)
+    )
 
 
 def is_taisyo(title, text):
     """処理対象ならTrueを返す"""
+
+    # "篠原光 (アナウンサー)"のようなタイトルの括弧除去
     name = title.split(" (")[0] if " (" in title else title
 
     if is_ja10(name):

@@ -35,6 +35,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y python3-lxml
+          sudo apt install -y python3-regex
 
       - name: コマンドをセットアップ
         run: |
