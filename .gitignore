@@ -3,6 +3,7 @@ a.py
 b.py
 jisyo.txt
 jisyo2.txt
+jisyo3.txt
 out.txt
 nohup.out
 jawiki-latest-pages-articles.xml.bz2
@@ -19,3 +20,5 @@ nodup_over3.txt
 skk_all.txt
 skk_over3.txt
 a
+.vscode
+b

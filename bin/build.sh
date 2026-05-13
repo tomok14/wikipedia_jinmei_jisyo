@@ -13,47 +13,59 @@ echo $DATE
 # sortをひらがな、カタカナ、漢字順にする
 export LC_COLLATE=C
 
+function create_jisyo_core() {
+    DICNAME=$1
+    DICFILE=$2
+    CC=$3 # Comment Character
+    BASE=$4
+    DUMPFILE=$5
+
+    echo "COMT=$COMT"
+
+    echo "${CC} ${DICNAME}用Wikipedia人名辞書: $COMT" >$DICFILE
+    echo "${CC} 生成元のデータ: $DUMPFILE" >>$DICFILE
+    echo "${CC} 有効項目数: $LINE" >>$DICFILE
+    echo "${CC} 読み, 語句, 品詞" >>$DICFILE
+    echo "${CC} Created: $DATE" >>$DICFILE
+    if [ "$DICNAME" = "SKK" ]; then
+        awk '{print $1 " /" $2 "/"}' $BASE | sort >>$DICFILE
+    else
+        cat $BASE | sort >>$DICFILE
+    fi
+}
+
 function create_jisyo() {
     BASE=$1
     TYPE=$2
     COMT="$3"
 
-    MOZC=$OUTDIR/mozc_${TYPE}.txt
+    LINE=$(wc -l $BASE | cut -f 1 -d ' ')
 
     # mozc用辞書の作成
-    echo "# mozc用Wikipedia人名辞書: $COMT" >$MOZC
-    echo "# 生成元のデータ: $DUMPFILE" >>$MOZC
-    echo "# 読み, 語句, 品詞" >>$MOZC
-    echo "# Created: $DATE" >>$MOZC
-    cat $BASE | sort >>$MOZC
-
-    SKK=$OUTDIR/skk_${TYPE}.txt
+    MOZC=$OUTDIR/mozc_${TYPE}.txt
+    create_jisyo_core "mozc" $MOZC "#" $BASE $DUMPFILE
 
     # SKK用辞書の作成
-    echo ";; -*- mode: fundamental; coding: utf-8 -*-" >$SKK
-    echo ";; SKK用Wikipedia人名辞書: $COMT" >>$SKK
-    echo ";; 生成元のデータ: $DUMPFILE" >>$SKK
-    echo ";; Created: $DATE" >>$SKK
-    awk '{print $1 " /" $2 "/"}' $BASE | sort >>$SKK
-
-    MSIME=$OUTDIR/msime_${TYPE}.txt
+    SKK=$OUTDIR/skk_${TYPE}.txt
+    create_jisyo_core "SKK" $SKK ";;" $BASE $DUMPFILE
 
     # MS-IME辞書の作成
-    echo "! MS-IME用Wikipedia人名辞書: $COMT" >$MSIME
-    echo "! 生成元のデータ: $DUMPFILE" >>$MSIME
-    echo "! Created: $DATE" >>$MSIME
-    cat $BASE | sort >>$MSIME
+    MSIME=$OUTDIR/msime_${TYPE}.txt
+    create_jisyo_core "MS-IME" $MSIME "!" $BASE $DUMPFILE
 }
 
 function main() {
     # 辞書作成
     python src/mkjisyo.py $DUMPFILE >$OUTDIR/jisyo.txt
 
+    # 空行削除「
+    grep -v "^$" $OUTDIR/jisyo.txt >$OUTDIR/jisyo2.txt
+
     # よみの入っていないおかしなデータは削除する
-    grep -P -v "^\t" $OUTDIR/jisyo.txt >$OUTDIR/jisyo2.txt
+    grep -P -v "^\t" $OUTDIR/jisyo2.txt >$OUTDIR/jisyo3.txt
 
     # 重複行削除
-    awk '!a[$0]++' $OUTDIR/jisyo2.txt >$OUTDIR/nodup_all.txt
+    awk '!a[$0]++' $OUTDIR/jisyo3.txt >$OUTDIR/nodup_all.txt
 
     # 1,2文字の読みは削除する
     # →日本語漢字変換の誤動作を防ぐため
