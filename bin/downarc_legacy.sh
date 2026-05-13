@@ -62,7 +62,7 @@ function main() {
     for i in $LIST; do
         arcfile="$arcdir/$i"
         echo "Downloading $arcfile ..."
-        wget $arcfile
+        wget -q $arcfile
     done
 
     ## bunzip2

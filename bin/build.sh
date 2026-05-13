@@ -1,9 +1,12 @@
 #!/bin/bash
 
 OUTDIR=output
+if [ ! -e $OUTDIR ]; then
+    mkdir $OUTDIR
+fi
 
 DUMPFILE="$1"
-echo $DUMPFILE
+echo "DUMPFILE=$DUMPFILE"
 
 # 作成日
 DATE=$(TZ=Asia/Tokyo date "+%Y/%-m/%-d %H:%M:%S JST")
