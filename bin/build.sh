@@ -30,6 +30,7 @@ function create_jisyo_core() {
     echo "${CC} 有効項目数: $LINE" >>$DICFILE
     echo "${CC} 読み, 語句, 品詞" >>$DICFILE
     echo "${CC} Created: $DATE" >>$DICFILE
+    echo "" >>$DICFILE
     if [ "$DICNAME" = "SKK" ]; then
         awk '{print $1 " /" $2 "/"}' $BASE | sort >>$DICFILE
     else
