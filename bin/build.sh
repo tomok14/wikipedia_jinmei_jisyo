@@ -25,12 +25,18 @@ function create_jisyo_core() {
 
     echo "COMT=$COMT"
 
-    echo "${CC} ${DICNAME}用Wikipedia人名辞書: $COMT" >"$DICFILE"
-    echo "${CC} 生成元のデータ: $DUMPFILE" >>"$DICFILE"
-    echo "${CC} 有効項目数: $LINE" >>"$DICFILE"
-    echo "${CC} Created: $DATE" >>"$DICFILE"
-    echo "${CC} 読み, 語句, 品詞" >>"$DICFILE"
-    echo "" >>"$DICFILE"
+    # ヘッダ
+    {
+        echo "${CC} ${DICNAME}用Wikipedia人名辞書: $COMT"
+        echo "${CC} 生成元のデータ: $DUMPFILE"
+        echo "${CC} 生成元のデータ: $DUMPFILE"
+        echo "${CC} 有効項目数: $LINE"
+        echo "${CC} Created: $DATE"
+        echo "${CC} 読み, 語句, 品詞"
+        echo ""
+    } >"$DICFILE"
+
+    # 本体
     if [ "$DICNAME" = "SKK" ]; then
         awk '{print $1 " /" $2 "/"}' "$BASE" | sort >>"$DICFILE"
     else
