@@ -29,6 +29,9 @@ RE_TAN = regex.compile(
     r"（([ぁ-んー\s]+)"
 )
 
+# {{...}} テンプレート除去（名前と読みの間に挿入されるefn等への対応）
+RE_STRIP_TEMPLATE = regex.compile(r"\{\{(?:[^{}]|(?R))*\}\}")
+
 
 # -------------------------------
 def is_hiragana(s):
@@ -39,6 +42,9 @@ def is_hiragana(s):
 
 def proc_text(text):
     """Wikipedia記事一ページ分のテキスト処理"""
+
+    # {{...}} テンプレートを除去（efn, refn等が名前と読みの間にあるケースへの対応）
+    text = RE_STRIP_TEMPLATE.sub("", text)
 
     # ＜姓 名＞ 形式
     if m := RE_SEIMEI.search(text):
@@ -58,7 +64,8 @@ def proc_text(text):
     if "人物" in last500:
         if m := RE_TAN.search(text):
             tan_kanji, tan_yomi = m.groups()
-            tan_yomi = tan_yomi.replace(" ", "")
+            # tan_yomi = tan_yomi.replace(" ", "")
+            tan_yomi = re.sub(r"\s+", "", tan_yomi)
 
             if tan_yomi == "":
                 return
