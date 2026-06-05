@@ -8,7 +8,7 @@ import regex
 import bz2
 import sys
 from datetime import datetime
-from lxml import etree
+import lxml.etree as etree
 
 
 # -----------------------------------------------------
