@@ -103,6 +103,13 @@ def is_taisyo(title, text):
     return False
 
 
+def open_dumpfile(filename):
+    """.xml と .xml.bz2 の両方に対応"""
+    if filename.endswith(".bz2"):
+        return bz2.open(filename, "rb")
+    return open(filename, "rb")
+
+
 def proc(dumpfile):
     """メイン処理"""
 
@@ -111,7 +118,8 @@ def proc(dumpfile):
     ns_uri = None
     NS = None
 
-    with bz2.open(dumpfile, "rb") as f:
+    # with bz2.open(dumpfile, "rb") as f:
+    with open_dumpfile(dumpfile) as f:
         context = etree.iterparse(f, events=("start", "end"))
 
         for event, elem in context:
