@@ -1,20 +1,17 @@
 #!/bin/bash
 
-outdir=output
-if [ ! -e $outdir ]; then
-    mkdir $outdir
-fi
-
-dumpfile="$1"
-echo "dumpfile=$dumpfile"
-
-# 作成日
-date=$(TZ=Asia/Tokyo date "+%Y/%-m/%-d %H:%M:%S JST")
-#DATE=$(LANG=C TZ=-9 date '+%a %b %d %H:%M:%S JST %Y')
-echo "$date"
-
 # sortをひらがな、カタカナ、漢字順にする
 export LC_COLLATE=C
+
+OUTDIR=output
+if [ ! -e $OUTDIR ]; then
+    mkdir $OUTDIR
+fi
+
+# 作成日
+DATE=$(TZ=Asia/Tokyo date "+%Y/%-m/%-d %H:%M:%S JST")
+#DATE=$(LANG=C TZ=-9 date '+%a %b %d %H:%M:%S JST %Y')
+echo "$DATE"
 
 function create_jisyo_core() {
     dicname="$1"
@@ -33,7 +30,7 @@ function create_jisyo_core() {
         echo "${cc} 生成元のデータ: $dumpfile"
         echo "${cc} 生成元のデータ: $dumpfile"
         echo "${cc} 有効項目数: $line"
-        echo "${cc} Created: $date"
+        echo "${cc} Created: $DATE"
         echo "${cc} 読み, 語句, 品詞"
         echo ""
     } >"$dicfile"
@@ -54,39 +51,43 @@ function create_jisyo() {
     line=$(wc -l "$base" | cut -f 1 -d ' ')
 
     # mozc用辞書の作成
-    mozc=$outdir/mozc_${type}.txt
+    mozc=$OUTDIR/mozc_${type}.txt
     create_jisyo_core "mozc" "$mozc" "#" "$base" "$dumpfile" "$line" "$comt"
 
     # SKK用辞書の作成
-    skk=$outdir/skk_${type}.txt
+    skk=$OUTDIR/skk_${type}.txt
     create_jisyo_core "SKK" "$skk" ";;" "$base" "$dumpfile" "$line" "$comt"
 
     # MS-IME辞書の作成
-    msime=$outdir/msime_${type}.txt
+    msime=$OUTDIR/msime_${type}.txt
     create_jisyo_core "MS-IME" "$msime" "!" "$base" "$dumpfile" "$line" "$comt"
 }
 
 function main() {
-    # 辞書作成
-    python src/mkjisyo.py "$dumpfile" >$outdir/jisyo.txt
 
-    # 空行削除「
-    grep -v "^$" $outdir/jisyo.txt >$outdir/jisyo2.txt
+    dumpfile_list="$*"
+    echo "dumpfile_list=$dumpfile_list"
+
+    # 辞書作成
+    python src/mkjisyo.py "$dumpfile_list" >$OUTDIR/jisyo.txt
+
+    # 空行削除
+    grep -v "^$" $OUTDIR/jisyo.txt >$OUTDIR/jisyo2.txt
 
     # よみの入っていないおかしなデータは削除する
-    grep -P -v "^\t" $outdir/jisyo2.txt >$outdir/jisyo3.txt
+    grep -P -v "^\t" $OUTDIR/jisyo2.txt >$OUTDIR/jisyo3.txt
 
     # 重複行削除
-    awk '!a[$0]++' $outdir/jisyo3.txt >$outdir/nodup_all.txt
+    awk '!a[$0]++' $OUTDIR/jisyo3.txt >$OUTDIR/nodup_all.txt
 
     # 1,2文字の読みは削除する
     # →日本語漢字変換の誤動作を防ぐため
-    grep -v -P "^.{1,2}\t" $outdir/nodup_all.txt >$outdir/nodup_over3.txt
+    grep -v -P "^.{1,2}\t" $OUTDIR/nodup_all.txt >$OUTDIR/nodup_over3.txt
 
-    create_jisyo $outdir/nodup_all.txt all "全て入り版"
-    create_jisyo $outdir/nodup_over3.txt over3 "１，２文字除外版"
+    create_jisyo $OUTDIR/nodup_all.txt all "全て入り版"
+    create_jisyo $OUTDIR/nodup_over3.txt over3 "１，２文字除外版"
 }
 
-main
+main "$@"
 
 # EOF

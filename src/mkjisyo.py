@@ -12,12 +12,6 @@ import lxml.etree as etree
 
 
 # -----------------------------------------------------
-# RE_SEIMEI = re.compile(
-#    r"'''([一-龯ぁ-ゔァ-ヴー々]+)\s+([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー]+)\s+([ぁ-んー]+)"
-# )
-# RE_TAN = re.compile(r"'''([一-龯ぁ-ゔァ-ヴー々]+)'''（([ぁ-んー\s]+)")
-# import regex
-
 RE_SEIMEI = regex.compile(
     r"'''([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)\s+"
     r"([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)'''"
