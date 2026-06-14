@@ -2,7 +2,7 @@ name: make_jisyo_cron
 
 on:
   schedule:
-    - cron: "0 0 10 * *"   # 分、時、日、月、曜日？毎月15日の 00:00 UTC（日本時間 09:00）
+    - cron: "0 0 10 * *" # 分、時、日、月、曜日？毎月15日の 00:00 UTC（日本時間 09:00）
   workflow_dispatch:
 
 permissions:
@@ -57,3 +57,8 @@ jobs:
           tag: ${{ steps.tag.outputs.tag }}
           artifacts: "output/mozc_all.txt,output/mozc_over3.txt,output/skk_all.txt,output/skk_over3.txt,output/msime_all.txt,output/msime_over3.txt"
           bodyFile: "body.md"
+
+      - name: send mail
+        run: |
+          echo ${{ secrets.EMAIL }}
+          echo test | mail -s "test" ${{ secrets.EMAIL }}
