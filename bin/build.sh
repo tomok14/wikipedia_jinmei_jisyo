@@ -28,7 +28,6 @@ function create_jisyo_core() {
     {
         echo "${cc} ${dicname}用Wikipedia人名辞書: $comt"
         echo "${cc} 生成元のデータ: $dumpfile"
-        echo "${cc} 生成元のデータ: $dumpfile"
         echo "${cc} 有効項目数: $line"
         echo "${cc} Created: $DATE"
         echo "${cc} 読み, 語句, 品詞"
