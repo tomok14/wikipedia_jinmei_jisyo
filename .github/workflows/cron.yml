@@ -45,7 +45,7 @@ jobs:
       - name: コマンドをセットアップ
         run: |
           sudo apt update
-          sudo apt install -y wget curl
+          sudo apt install -y wget curl mailutils
 
       - name: make honban
         run: |

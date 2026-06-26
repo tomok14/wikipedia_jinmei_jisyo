@@ -9,8 +9,8 @@ fi
 
 function get_latest_date() {
     TOPURL="$1"
-    latest=$(curl -s $TOPURL | grep -E "href=\"[0-9]{8}\/\"" | tail -1 | sed -r 's/^.*([0-9]{4}[0-9]{2}[0-9]{2}).*$/\1/')
-    echo $latest
+    latest=$(curl -s "$TOPURL" | grep -E "href=\"[0-9]{8}\/\"" | tail -1 | sed -r 's/^.*([0-9]{4}[0-9]{2}[0-9]{2}).*$/\1/')
+    echo "$latest"
 }
 function check_free_disk() {
     avail=$(/usr/bin/df --output="avail" . | grep -E "[0-9]+")
@@ -19,7 +19,7 @@ function check_free_disk() {
     echo "disk avail=$avail($human)"
 
     # 8Gは必須?
-    if [ $avail -lt $((8 * 1024 * 1024)) ]; then
+    if [ "$avail" -lt $((8 * 1024 * 1024)) ]; then
         echo "ERROR: no free space. avail=$human"
         exit 1
     fi
@@ -41,14 +41,14 @@ function main() {
 
     # すでにdownload済かどうかチェック
     for i in $LIST; do
-        if [ -f $i ]; then
+        if [ -f "$i" ]; then
             echo "Warn: file exist: $i"
         fi
     done
 
     # downloadするかどうかをユーザーに確認する
     if [ $AUTO -eq 0 ]; then
-        read -p "download? (y/N): " yn
+        read -rp "download? (y/N): " yn
         case "$yn" in
         [yY]*) echo "downloadします" ;;
         *)
@@ -62,7 +62,7 @@ function main() {
     for i in $LIST; do
         arcfile="$arcdir/$i"
         echo "Downloading $arcfile ..."
-        wget -q $arcfile
+        wget -q "$arcfile"
     done
 
     ## bunzip2
