@@ -46,29 +46,34 @@ function create_jisyo() {
     base="$1"
     type="$2"
     comt="$3"
+    dumpfiles="$4"
 
     line=$(wc -l "$base" | cut -f 1 -d ' ')
 
     # mozc用辞書の作成
     mozc=$OUTDIR/mozc_${type}.txt
-    create_jisyo_core "mozc" "$mozc" "#" "$base" "$dumpfile" "$line" "$comt"
+    create_jisyo_core "mozc" "$mozc" "#" "$base" "$dumpfiles" "$line" "$comt"
 
     # SKK用辞書の作成
     skk=$OUTDIR/skk_${type}.txt
-    create_jisyo_core "SKK" "$skk" ";;" "$base" "$dumpfile" "$line" "$comt"
+    create_jisyo_core "SKK" "$skk" ";;" "$base" "$dumpfiles" "$line" "$comt"
 
     # MS-IME辞書の作成
     msime=$OUTDIR/msime_${type}.txt
-    create_jisyo_core "MS-IME" "$msime" "!" "$base" "$dumpfile" "$line" "$comt"
+    create_jisyo_core "MS-IME" "$msime" "!" "$base" "$dumpfiles" "$line" "$comt"
+
+    # Gboard辞書の作成
+    gboard=$OUTDIR/gboard_${type}.txt
+    create_jisyo_core "Gboard" "$gboard" "!" "$base" "$dumpfiles" "$line" "$comt"
 }
 
 function main() {
 
-    dumpfile_list="$*"
-    echo "dumpfile_list=$dumpfile_list"
+    dumpfiles="$*"
+    echo "dumpfiles=$dumpfiles"
 
     # 辞書作成
-    python src/mkjisyo.py "$dumpfile_list" >$OUTDIR/jisyo.txt
+    python src/mkjisyo.py "$dumpfiles" >$OUTDIR/jisyo.txt
 
     # 空行削除
     grep -v "^$" $OUTDIR/jisyo.txt >$OUTDIR/jisyo2.txt
@@ -83,8 +88,8 @@ function main() {
     # →日本語漢字変換の誤動作を防ぐため
     grep -v -P "^.{1,2}\t" $OUTDIR/nodup_all.txt >$OUTDIR/nodup_over3.txt
 
-    create_jisyo $OUTDIR/nodup_all.txt all "全て入り版"
-    create_jisyo $OUTDIR/nodup_over3.txt over3 "１，２文字除外版"
+    create_jisyo $OUTDIR/nodup_all.txt all "全て入り版" "$dumpfiles"
+    create_jisyo $OUTDIR/nodup_over3.txt over3 "１，２文字除外版" "$dumpfiles"
 }
 
 main "$@"

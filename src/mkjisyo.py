@@ -177,6 +177,7 @@ def main():
 
     lognow("mkjisyo start")
     lognow(f"jisyofile = {jisyofile}")
+    lognow(f"dumpfiles = {dumpfiles}")
 
     # with bz2.open(jisyofile, "wt", encoding="utf-8") as jisyo:
     for dumpfile in dumpfiles:
