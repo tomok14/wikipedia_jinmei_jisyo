@@ -15,6 +15,7 @@ import lxml.etree as etree
 RE_SEIMEI = regex.compile(
     r"'''([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)\s+"
     r"([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)'''"
+    r"[^\(（]+"
     r"（([ぁ-んー]+)\s+([ぁ-んー]+)"
 )
 

@@ -1,0 +1,81 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.11/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.11/ http://www.mediawiki.org/xml/export-0.11.xsd" version="0.11" xml:lang="ja">
+  <siteinfo>
+    <sitename>Wikipedia</sitename>
+    <dbname>jawiki</dbname>
+    <base>https://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8</base>
+    <generator>MediaWiki 1.47.0-wmf.5</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">メディア</namespace>
+      <namespace key="-1" case="first-letter">特別</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">ノート</namespace>
+      <namespace key="2" case="first-letter">利用者</namespace>
+      <namespace key="3" case="first-letter">利用者‐会話</namespace>
+      <namespace key="4" case="first-letter">Wikipedia</namespace>
+      <namespace key="5" case="first-letter">Wikipedia‐ノート</namespace>
+      <namespace key="6" case="first-letter">ファイル</namespace>
+      <namespace key="7" case="first-letter">ファイル‐ノート</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki‐ノート</namespace>
+      <namespace key="10" case="first-letter">Template</namespace>
+      <namespace key="11" case="first-letter">Template‐ノート</namespace>
+      <namespace key="12" case="first-letter">Help</namespace>
+      <namespace key="13" case="first-letter">Help‐ノート</namespace>
+      <namespace key="14" case="first-letter">Category</namespace>
+      <namespace key="15" case="first-letter">Category‐ノート</namespace>
+      <namespace key="100" case="first-letter">Portal</namespace>
+      <namespace key="101" case="first-letter">Portal‐ノート</namespace>
+      <namespace key="102" case="first-letter">プロジェクト</namespace>
+      <namespace key="103" case="first-letter">プロジェクト‐ノート</namespace>
+      <namespace key="126" case="first-letter">MOS</namespace>
+      <namespace key="127" case="first-letter">MOS‐ノート</namespace>
+      <namespace key="710" case="first-letter">TimedText</namespace>
+      <namespace key="711" case="first-letter">TimedText talk</namespace>
+      <namespace key="828" case="first-letter">モジュール</namespace>
+      <namespace key="829" case="first-letter">モジュール‐ノート</namespace>
+      <namespace key="1728" case="first-letter">Event</namespace>
+      <namespace key="1729" case="first-letter">Event talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>イクタンガ</title>
+    <ns>0</ns>
+    <id>1772972</id>
+    <revision>
+      <id>88307775</id>
+      <parentid>88035436</parentid>
+      <timestamp>2022-03-01T18:13:07Z</timestamp>
+      <contributor>
+        <username>Cewbot</username>
+        <id>1094317</id>
+      </contributor>
+      <minor/>
+      <comment>[[Special:Diff/88307499#満州|Bot作業依頼]]: [[プロジェクト‐ノート:中国#記事名に「満州」を含むページの改名提案|満州]] (:Category:満洲民族) - [[User:Cewbot/log/20190913|log]]</comment>
+      <origin>88307775</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="1918" sha1="jj4df5hl4kulc0ufgsuark6ov6ki2ky" xml:space="preserve">'''イクタンガ'''（{{lang-mnc|ᡞᡍᠲᠠᠩᡤᠠ}}　[[:en:Transliterations of Manchu|メレンドルフ式転写]]: ''iktangga''、依克唐阿、[[1834年]] ‐ [[1899年]]）は、[[清]]の軍人・官僚。字は'''堯山'''。
+
+[[満州民族|満州]]鑲黄[[旗人]]。ジャラリ氏（jalari hala、扎拉里氏）。[[吉林省|吉林]]で軍務についていたが、[[太平天国]]との戦いのために[[江南]]に赴いた後、[[捻軍]]との戦いに従事し首領の[[張楽行]]を破る功績を立てた。後に吉林に戻って[[白凌阿|バリンガ]]（白凌阿）の蜂起軍を鎮圧し、[[光緒]]2年（[[1876年]]）に黒竜江副都統に昇進した。光緒5年（[[1879年]]）に[[呼蘭区|フラン]]副都統となり、[[ロシア帝国|ロシア]]に対する防衛にあたった。その後[[琿春市|フンチュン]]副都統に移って吉林の軍事を管轄し、光緒15年（[[1889年]]）に黒竜江将軍に昇進した。
+
+[[1894年]]、[[日清戦争]]が勃発すると吉林将軍の[[長順]]とともに援軍に赴き、日本軍に占領された[[海城市|海城]]を包囲したが、奪回に失敗した。戦争終結後には、鑲黄旗漢軍都統に任命され、さらに盛京将軍に転任となった。死後、誠勇の[[諡号]]を贈られた。
+
+イクタンガは軍事に長けていたが、温厚でみだりに人を殺さなかったという。
+
+==出典==
+* 『[[清史稿]]』巻461・列伝248
+
+{{先代次代|[[黒竜江省|黒竜江]]将軍|1889-1894|[[恭鏜]]（グンタン）|[[増祺]]（ヅェンキ）}}
+{{先代次代|[[遼寧省|盛京]]将軍|1895-1899|[[裕禄]]（ユル）|[[文興 (清)|文興]]（ウェンヒン）}}
+
+{{DEFAULTSORT:いくたんか}}
+[[Category:清代の人物]]
+[[Category:満洲民族]]
+[[Category:日清戦争の人物]]
+[[Category:1899年没]]
+{{Chinese-history-stub}}</text>
+      <sha1>jj4df5hl4kulc0ufgsuark6ov6ki2ky</sha1>
+    </revision>
+  </page>
+</mediawiki>
