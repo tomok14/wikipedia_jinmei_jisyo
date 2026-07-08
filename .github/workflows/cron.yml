@@ -28,7 +28,6 @@ jobs:
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             TAG="v$(date +'%Y.%m.%d-%H%M%S')"
           fi
-          TAG="v$(date +'%Y.%m.%d-%H%M%S')"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
           git tag $TAG
           git push origin $TAG
