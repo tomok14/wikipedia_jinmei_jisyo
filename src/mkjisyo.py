@@ -15,14 +15,20 @@ import lxml.etree as etree
 RE_SEIMEI = regex.compile(
     r"'''([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)\s+"
     r"([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)'''"
-    r"[^\(（]+"
-    r"（([ぁ-んー]+)\s+([ぁ-んー]+)"
+    r"[^\(（]*"
+    r"[\(（]([ぁ-んー]+)\s+([ぁ-んー]+)"
 )
 
 RE_TAN = regex.compile(
     r"'''([\p{Script=Han}\p{Hiragana}\p{Katakana}ー々]+)'''"
-    r"（([ぁ-んー\s]+)"
+    r"[\(（]([ぁ-んー\s]+)"
 )
+RE_RUBY_REPLACE = regex.compile(
+    r"\{\{読み仮名_ruby不使用\s*"
+    r"\|\s*('''.*?''')\s*"
+    r"\|\s*([^|}]+)"
+)
+
 
 # {{...}} テンプレート除去（名前と読みの間に挿入されるefn等への対応）
 RE_STRIP_TEMPLATE = regex.compile(r"\{\{(?:[^{}]|(?R))*\}\}")
@@ -37,9 +43,12 @@ def is_hiragana(s):
 
 def proc_text(text):
     """Wikipedia記事一ページ分のテキスト処理"""
-
+    # print(text[text.find("星 新一") - 20 : text.find("星 新一") + 20])
+    # print(repr(text[text.find("星 新一") - 20 : text.find("星 新一") + 20]))
     # {{...}} テンプレートを除去（efn, refn等が名前と読みの間にあるケースへの対応）
+    text = RE_RUBY_REPLACE.sub(r"\1（\2", text)
     text = RE_STRIP_TEMPLATE.sub("", text)
+    text = text.replace("\\'", "'")
 
     # ＜姓 名＞ 形式
     if m := RE_SEIMEI.search(text):
